@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/sample.css">
+    <title>じゃんけん</title>
+</head>
+
+<body>
+
+    <header>
+        <h1></h1>
+    </header>
+
+    <main>
+        <div><span id="pc_hands"><img src="img/janken.png"></span></div>
+        
+        <div id="judgment">じゃんけん</div>
+
+        <div><span id="you_hands"><img src="img/janken.png"></span></div>
+    </main> 
+
+        <ul>
+            
+            <li id="gu_btn"><img src="img/gu.png"></li>
+            <li id="cho_btn"><img src="img/cho.png"></li>
+            <li id="par_btn"><img src="img/par.png"></li>
+        </ul>
+
+        <ul>
+            <p>勝利数：<span id="wins">0</span>回</p>
+            <p>勝率：<span id="winrate">0</span>％</p> 
+            <p>連勝記録：<span id="streak">0</span>回</p>
+        </ul>
+
+        <button class="reset_btn">リセット</button>
+
+    <footer></footer>
+
+<script>
+    let wins = 0;
+    let losses = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let winrate = 0;
+
+// グー
+   $("#gu_btn").on("click",function(){
+    const r = Math.ceil( Math.random()*3 );
+    let pc_hands = "";
+    if(r==1){
+        pc_hands = '<img class="p_hands" src="img/gu.png">';
+        judgment = 'あいこ';
+        you_hands ='<img class="y_hands" src="img/gu.png">';
+        streak = 0;
+    }
+    if(r==2){
+        pc_hands = '<img class="p_hands" src="img/cho.png">';
+        judgment = '<img class="judgment" src="img/win.png">';
+        you_hands ='<img class="y_hands" src="img/gu.png">';
+        wins++;
+        streak++;
+        maxStreak = Math.max(maxStreak, streak);
+    }
+    if(r==3){
+        pc_hands = '<img class="p_hands" src="img/par.png">';
+        judgment = '<img class="judgment" src="img/lose.png">';
+        you_hands ='<img class="y_hands" src="img/gu.png">';
+        losses++;
+        streak = 0;
+    }
+    $("#pc_hands").html(pc_hands);
+    $("#judgment").html(judgment);
+    $("#you_hands").html(you_hands);
+    $("#wins").html(wins);
+    $("#losses").html(losses);
+    $("#streak").html(maxStreak);
+    $("#winrate").html((wins / (wins + losses) * 100).toFixed(1));
+   }) ;
+
+// チョキ
+   $("#cho_btn").on("click",function(){
+    const r = Math.ceil( Math.random()*3 );
+    let pc_hands = "";
+    if(r==1){
+        pc_hands =  '<img class="p_hands" src="img/gu.png">';
+        judgment = '<img class="judgment" src="img/lose.png">';
+        you_hands ='<img class="y_hands" src="img/cho.png">';
+        losses++;
+        streak = 0;
+    }
+    if(r==2){
+        pc_hands = '<img class="p_hands" src="img/cho.png">';
+        judgment = 'あいこ';
+        you_hands ='<img class="y_hands" src="img/cho.png">';
+        streak = 0;
+    }
+    if(r==3){
+        pc_hands = '<img class="p_hands" src="img/par.png">';
+        judgment = '<img class="judgment" src="img/win.png">';
+        you_hands ='<img class="y_hands" src="img/cho.png">';
+        wins++;
+        streak++;
+        maxStreak = Math.max(maxStreak, streak);
+    }
+    $("#pc_hands").html(pc_hands);
+    $("#judgment").html(judgment);
+    $("#you_hands").html(you_hands);
+    $("#wins").html(wins);
+    $("#losses").html(losses);
+    $("#streak").html(maxStreak);
+    $("#winrate").html((wins / (wins + losses) * 100).toFixed(1));
+   }) ;
+
+// パー
+   $("#par_btn").on("click",function(){
+    const r = Math.ceil( Math.random()*3 );
+    let pc_hands = "";
+    if(r==1){
+        pc_hands =  '<img class="p_hands" src="img/gu.png">';
+        judgment = '<img class="judgment" src="img/win.png">';
+        you_hands ='<img class="y_hands" src="img/par.png">';
+        wins++;
+        streak++;
+        maxStreak = Math.max(maxStreak, streak);
+    }
+    if(r==2){
+        pc_hands = '<img class="p_hands" src="img/cho.png">';
+        judgment = '<img class="judgment" src="img/lose.png">';
+        you_hands ='<img class="y_hands" src="img/par.png">';
+        losses++;
+        streak = 0;
+    }
+    if(r==3){
+        pc_hands = '<img class="p_hands" src="img/par.png">';
+        judgment = 'あいこ';
+        you_hands ='<img class="y_hands" src="img/par.png">';
+        streak = 0;
+    }
+    $("#pc_hands").html(pc_hands);
+    $("#judgment").html(judgment);
+    $("#you_hands").html(you_hands);
+    $("#wins").html(wins);
+    $("#losses").html(losses);
+    $("#streak").html(maxStreak);
+    $("#winrate").html((wins / (wins + losses) * 100).toFixed(1));
+   }) ;   
+
+//リセットボタン
+   $(".reset_btn").on("click", function(){
+    wins = 0;
+    losses = 0;
+    streak = 0;
+    maxStreak = 0;
+    winrate = 0;
+
+    $("#wins").html(wins);
+    $("#losses").html(losses);
+    $("#streak").html(maxStreak);
+    $("#winrate").html((wins / (wins + losses) * 100).toFixed(1));
+});
+   
+</script>
+</body>
+
+</html>
